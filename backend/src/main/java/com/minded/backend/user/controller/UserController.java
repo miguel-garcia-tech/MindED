@@ -7,31 +7,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/users")
-public class UserController {
+@RequestMapping("/api/auth")
+public class AuthController {
 
     @Autowired
     private AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User user) {
-        // Placeholder for login logic
-        boolean success = authService.login(user.getUsername(), user.getPassword());
-        if (success) {
-            return ResponseEntity.ok("Login successful");
-        } else {
-            return ResponseEntity.status(401).body("Invalid credentials");
-        }
-    }
+    public ResponseEntity<String> login(@RequestBody User loginRequest) {
+        boolean success = authService.login(loginRequest.getUsername(), loginRequest.getPassword());
 
-    @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody User user) {
-        // Placeholder for register logic
-        boolean success = authService.register(user.getUsername(), user.getPassword());
         if (success) {
-            return ResponseEntity.ok("Registration successful");
+            return ResponseEntity.ok("Login realizado com sucesso!");
         } else {
-            return ResponseEntity.status(400).body("Registration failed");
+            return ResponseEntity.status(401).body("Usuário ou senha inválidos.");
         }
     }
 }

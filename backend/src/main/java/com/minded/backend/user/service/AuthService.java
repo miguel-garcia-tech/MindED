@@ -1,21 +1,21 @@
 package com.minded.backend.user.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 @Service
 public class AuthService {
 
-    public boolean login(String username, String password) {
-        // Placeholder for login logic
-        System.out.println("Attempting to log in user: " + username);
-        // In a real app, this would involve checking against a database
-        return true; // Always true for now
-    }
+    @Autowired
+    private UserRepository userRepository;
 
-    public boolean register(String username, String password) {
-        // Placeholder for registration logic
-        System.out.println("Attempting to register user: " + username);
-        // In a real app, this would involve saving to a database
-        return true; // Always true for now
+    public boolean login(String username, String password) {
+        User user = userRepository.findByUsername(username);
+
+        if (user != null && user.getPassword().equals(password)) {
+            return true; // login OK
+        }
+        return false; // usuário não encontrado ou senha incorreta
     }
 }
