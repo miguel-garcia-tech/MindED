@@ -16,7 +16,7 @@ public class SecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/", "/images/**").permitAll() // Allow access to home and images
+                .requestMatchers("/", "/assets").permitAll() // Allow access to home and images
                 .anyRequest().authenticated() // All other requests require authentication
             )
             .oauth2Login(withDefaults()); // Enable OAuth2 login
